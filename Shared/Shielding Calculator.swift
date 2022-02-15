@@ -12,7 +12,7 @@ class ShieldEq: NSObject,ObservableObject {
     @MainActor @Published var dataPoint = [(xPos: Double, yPos: Double)]()
     @Published var numberOfParticles = 0
     var startingPoint = 4.0
-    
+    var l = 0
     var yPos = 4.0
     var xPos = 0.0
     var newYPos = 0.0
@@ -28,12 +28,12 @@ class ShieldEq: NSObject,ObservableObject {
     func initWithDecay(N: Int) async -> Bool {
            
            numberOfParticles = N
-               
+           maxN = Int(N)
                let _ = await withTaskGroup(of:  Void.self) { taskGroup in
                    
            
                
-                   taskGroup.addTask { let _ = await self.calculateWalk(N: self.numberOfParticles)}
+                   taskGroup.addTask { let _ = await self.calculateWalk()}
                
            }
                
@@ -47,8 +47,9 @@ class ShieldEq: NSObject,ObservableObject {
        }
 
 
-    func calculateWalk(N: Int) async -> Double {
-        while N <= maxN {
+    func calculateWalk() async -> Double {
+       
+        while l <= maxN {
                     
             var point = (xPos: 0.0, yPos: 0.0)
             var scatterPoints: [(xPos: Double, yPos: Double)] = []
@@ -73,9 +74,9 @@ class ShieldEq: NSObject,ObservableObject {
                 numberEscape += 1
             
             }
-           N += 1
+           l += 1
         }
-        percentEscape = Double(numberEscape)/(Double(N)/100.0)
+        percentEscape = Double(numberEscape)/(Double(maxN)/100.0)
             
         let newPercentEscapeText = String(format: "%7.5f", percentEscape)
         let newNumberEscapeText = String(format: "%7.5f", numberEscape)

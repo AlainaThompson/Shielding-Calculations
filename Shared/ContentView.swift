@@ -65,30 +65,33 @@ struct ContentView: View {
             }
             .padding()
             
+           
+            drawingView(redLayer:$shieldModel.dataPoint)
+                           .padding()
+                           .aspectRatio(1, contentMode: .fit)
+                           .drawingGroup()
+                       // Stop the window shrinking to zero.
+                       Spacer()
             
             
         }
     }
     
     func calculateDecay() async {
-            
-            
-        shieldModel.setButtonEnable(state: false)
-            
-        shieldModel.maxN = Int(NString)!
-            
-        await shieldModel.calculateWalk(N: Int)
-            
-            
-        shieldModel.setButtonEnable(state: true)
-            
-        }
+                  
+                  shieldModel.setButtonEnable(state: false)
+                  
+                  let _ : Bool = await shieldModel.initWithDecay(N: Int(NString)!)
+                  
+                  
+
+          }
     
     func clear(){
         
         NString = "100"
         totalNString = "0.0"
-
+        shieldModel.dataPoint = []
         shieldModel.numberOfParticles = 0
         shieldModel.xPos = 0.0
         shieldModel.yPos = 0.0

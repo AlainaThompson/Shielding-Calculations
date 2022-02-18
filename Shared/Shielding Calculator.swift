@@ -22,13 +22,15 @@ class ShieldEq: NSObject,ObservableObject {
     @Published var percentEscapeText = ""
     @Published var numberEscapeText = ""
     @Published var NString = "10.0"
-    @Published var maxN = 0
+    @Published var maxN = 100
     @Published var enableButton = true
     
+    
+    
+    
     func initWithDecay(N: Int) async -> Bool {
-           
-           numberOfParticles = N
-           maxN = Int(N)
+        await updateNumberOfParticles(maxN: maxN)
+        
                let _ = await withTaskGroup(of:  Void.self) { taskGroup in
                    
            
@@ -48,45 +50,50 @@ class ShieldEq: NSObject,ObservableObject {
 
 
     func calculateWalk() async -> Double {
-       
+        
+        var scatterPoints: [(xPos: Double, yPos: Double)] = []
+     
         while l <= maxN {
                     
-            var point = (xPos: 0.0, yPos: 0.0)
-            var scatterPoints: [(xPos: Double, yPos: Double)] = []
+            var point = (xPos: 0.0, yPos: 4.0)
+            
             //
             // mean free path = 1 = squrt(x^2 + y^2)
             //
             // randomize y coordinate while x follows this equation
-        
-            for _ in stride(from: 100, to: 0, by: energyLoss) {
-                newYPos = Double.random(in: 0.0...1.0)
-                point.yPos += newYPos
-                point.xPos += sqrt(1 - pow(newYPos, 2))
-            
-                scatterPoints.append(point)
+            for _ in stride(from: 100, to: 0, by: -energyLoss) {
+                if point.xPos <= 5.0 && point.yPos <= 5.0 && point.yPos >= 0.0 {
+                
+                    
+                    newYPos = Double.random(in: -1.0...1.0)
+                    point.yPos += newYPos
+                    let upDown = [-1.0, 1.0]
+                    let randomDirection = upDown.randomElement()!
+                    point.xPos += randomDirection*sqrt(1 - pow(newYPos, 2))
+                    scatterPoints.append(point)
            
-                return xPos
+                }
+            
+                else {
+                    await self.updateNumberEscape(number: numberEscape)
+                    point.xPos = 0.0
+                    point.yPos = 4.0
+                }
             }
-            
-        
-            if point.xPos >= 5.0 {
-            
-                numberEscape += 1
-            
-            }
-           l += 1
+                
+        l += 1
         }
-        percentEscape = Double(numberEscape)/(Double(maxN)/100.0)
+        await updatePercentEscape(numberEscape: numberEscape, maxN: maxN)
+        
             
         let newPercentEscapeText = String(format: "%7.5f", percentEscape)
         let newNumberEscapeText = String(format: "%7.5f", numberEscape)
         await updateNumberEscape(numberEscapeTextString: newNumberEscapeText)
-        await updatePercentEscape(percentEscapeTextString: newPercentEscapeText)
+        await updatePercentEscapeText(percentEscapeTextString: newPercentEscapeText)
         await newNumberEscapeValue(numberEscapeValue: numberEscape)
         await newPercentEscapeValue(percentEscapeValue: percentEscape)
                 
         return percentEscape
-        
                 
     }
 
@@ -142,7 +149,7 @@ class ShieldEq: NSObject,ObservableObject {
 }
 
 
-@MainActor func updatePercentEscape(percentEscapeTextString:String){
+@MainActor func updatePercentEscapeText(percentEscapeTextString:String){
     
     percentEscapeText = percentEscapeTextString
     
@@ -150,7 +157,22 @@ class ShieldEq: NSObject,ObservableObject {
 }
 
 
-
-
-
+    @MainActor func updateNumberOfParticles(maxN:Int){
+            
+        numberOfParticles = maxN
+            
+        }
+        
+    @MainActor func updatePercentEscape(numberEscape: Int, maxN:Int){
+            
+        percentEscape = Double(numberEscape)/(Double(maxN)/100.0)
+            
+        }
+    
+    @MainActor func updateNumberEscape(number: Int){
+            
+        numberEscape = number+1
+            
+        }
+        
 }

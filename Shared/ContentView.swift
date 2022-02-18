@@ -12,7 +12,7 @@ struct ContentView: View {
     @State var percentEscape = 0.0
     @State var numberOfParticles = 0.0
     @State var totalIntegral = 0.0
-    @State var maxN = 0
+    @State var maxN = 100
     @State var NString = "100"
     @State var totalNString = "0"
     @State var percentEscapeText = "0.0"
@@ -42,7 +42,7 @@ struct ContentView: View {
                     Text("Percent Escape")
                         .font(.callout)
                         .bold()
-                    TextField("# Perecnt Escape", text: $percentEscapeTextString)
+                    TextField("# Percent Escape", text: $shieldModel.percentEscapeText)
                         .padding()
                 }
                 
@@ -94,10 +94,10 @@ struct ContentView: View {
         shieldModel.dataPoint = []
         shieldModel.numberOfParticles = 0
         shieldModel.xPos = 0.0
-        shieldModel.yPos = 0.0
+        shieldModel.yPos = 4.0
         shieldModel.percentEscape = 0.0
         shieldModel.numberEscape = 0
-       
+        shieldModel.l = 0
       
         
     }

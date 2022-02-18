@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @State var energyLoss = 10
+    @State var energyLossString = "10"
     @State var percentEscape = 0.0
     @State var numberOfParticles = 0.0
     @State var totalIntegral = 0.0
@@ -39,13 +40,20 @@ struct ContentView: View {
                 .padding(.top, 5.0)
                 
                 VStack(alignment: .center) {
+                    Text("Percent Energy Loss")
+                        .font(.callout)
+                        .bold()
+                    TextField("", text: $energyLossString)
+                        .padding()
+                }
+                
+                VStack(alignment: .center) {
                     Text("Percent Escape")
                         .font(.callout)
                         .bold()
                     TextField("# Percent Escape", text: $shieldModel.percentEscapeText)
                         .padding()
                 }
-                
                 
                 
                 Button("Calculate", action: {Task.init{await self.calculateDecay()}})
@@ -77,15 +85,31 @@ struct ContentView: View {
         }
     }
     
-    func calculateDecay() async {
-                  
-                  shieldModel.setButtonEnable(state: false)
-                  
-                  let _ : Bool = await shieldModel.initWithDecay(N: Int(NString)!)
-                  
-                  
+    
+        func calculateDecay() async {
+                
+                
+            shieldModel.setButtonEnable(state: false)
+                
+            shieldModel.energyLoss = Int(energyLossString)!
+                
+            shieldModel.numberOfParticles = Int(NString)!
+                
+            await shieldModel.calculateWalk()
+                
+                
+                
+            percentEscapeText = shieldModel.percentEscapeText
+                
+            shieldModel.setButtonEnable(state: true)
+                
+            }
+        
+        
+        
+        
 
-          }
+          
     
     func clear(){
         

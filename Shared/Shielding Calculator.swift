@@ -11,18 +11,18 @@ import SwiftUI
 class ShieldEq: NSObject,ObservableObject {
     @MainActor @Published var dataPoint = [(xPos: Double, yPos: Double)]()
     @Published var numberOfParticles = 0
+    @Published var percentEscape = 0.0
+    @Published var numberEscape = 0
+    @Published var percentEscapeText = ""
+    @Published var numberEscapeText = ""
+    @Published var NString = "10.0"
     var startingPoint = 4.0
     var l = 0
     var yPos = 4.0
     var xPos = 0.0
     var newYPos = 0.0
     var energyLoss = 10
-    @Published var percentEscape = 0.0
-    @Published var numberEscape = 0
-    @Published var percentEscapeText = ""
-    @Published var numberEscapeText = ""
-    @Published var NString = "10.0"
-    @Published var maxN = 100
+    var maxN = 100
     @Published var enableButton = true
     
     

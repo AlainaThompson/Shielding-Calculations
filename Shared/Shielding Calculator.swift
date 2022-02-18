@@ -92,7 +92,8 @@ class ShieldEq: NSObject,ObservableObject {
         await updatePercentEscapeText(percentEscapeTextString: newPercentEscapeText)
         await newNumberEscapeValue(numberEscapeValue: numberEscape)
         await newPercentEscapeValue(percentEscapeValue: percentEscape)
-                
+        var plotScatterPoints = scatterPoints
+        await updateData(scatterPoints: plotScatterPoints)
         return percentEscape
                 
     }
@@ -172,6 +173,12 @@ class ShieldEq: NSObject,ObservableObject {
     @MainActor func updateNumberEscape(number: Int){
             
         numberEscape = number+1
+            
+        }
+    
+    @MainActor func updateData(scatterPoints: [(xPos: Double, yPos: Double)]) {
+            
+            dataPoint.append(contentsOf: scatterPoints)
             
         }
         

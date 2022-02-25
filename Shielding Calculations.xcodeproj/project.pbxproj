@@ -21,6 +21,8 @@
 		0919751327AD872C009B899E /* Shielding Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0919751127AD872C009B899E /* Shielding Calculator.swift */; };
 		091976C027BC2014009B899E /* ShieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091976BF27BC2014009B899E /* ShieldView.swift */; };
 		091976C127BC2014009B899E /* ShieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091976BF27BC2014009B899E /* ShieldView.swift */; };
+		0919770827C68E9B009B899E /* Bounding Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0919770727C68E9B009B899E /* Bounding Box.swift */; };
+		0919770927C68E9C009B899E /* Bounding Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0919770727C68E9B009B899E /* Bounding Box.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,7 @@
 		091974FB27AD857F009B899E /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		0919751127AD872C009B899E /* Shielding Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shielding Calculator.swift"; sourceTree = "<group>"; };
 		091976BF27BC2014009B899E /* ShieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldView.swift; sourceTree = "<group>"; };
+		0919770727C68E9B009B899E /* Bounding Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bounding Box.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,7 @@
 				091974D527AD8574009B899E /* Shielding_CalculationsApp.swift */,
 				091974D627AD8574009B899E /* ContentView.swift */,
 				091976BF27BC2014009B899E /* ShieldView.swift */,
+				0919770727C68E9B009B899E /* Bounding Box.swift */,
 				0919751127AD872C009B899E /* Shielding Calculator.swift */,
 				091974D727AD857F009B899E /* Assets.xcassets */,
 			);
@@ -309,6 +313,7 @@
 			files = (
 				091974FF27AD857F009B899E /* ContentView.swift in Sources */,
 				091974FD27AD857F009B899E /* Shielding_CalculationsApp.swift in Sources */,
+				0919770827C68E9B009B899E /* Bounding Box.swift in Sources */,
 				0919751227AD872C009B899E /* Shielding Calculator.swift in Sources */,
 				091976C027BC2014009B899E /* ShieldView.swift in Sources */,
 			);
@@ -320,6 +325,7 @@
 			files = (
 				0919750027AD857F009B899E /* ContentView.swift in Sources */,
 				091974FE27AD857F009B899E /* Shielding_CalculationsApp.swift in Sources */,
+				0919770927C68E9C009B899E /* Bounding Box.swift in Sources */,
 				0919751327AD872C009B899E /* Shielding Calculator.swift in Sources */,
 				091976C127BC2014009B899E /* ShieldView.swift in Sources */,
 			);

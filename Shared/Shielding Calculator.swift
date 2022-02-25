@@ -10,6 +10,7 @@ import SwiftUI
 
 class ShieldEq: NSObject,ObservableObject {
     @MainActor @Published var dataPoint = [(xPos: Double, yPos: Double)]()
+    @MainActor @Published var endPoints = [(xPos: Double, yPos: Double)]()
     @Published var numberOfParticles = 0
     @Published var percentEscape = 0.0
     @Published var numberEscape = 0
@@ -26,6 +27,14 @@ class ShieldEq: NSObject,ObservableObject {
     @Published var enableButton = true
     
     
+    @MainActor init(withData data: Bool){
+            
+            super.init()
+            
+            endPoints = []
+            dataPoint = []
+            
+        }
     
     
     func initWithDecay(N: Int) async -> Bool {
@@ -52,7 +61,7 @@ class ShieldEq: NSObject,ObservableObject {
     func calculateWalk() async -> Double {
         
         var scatterPoints: [(xPos: Double, yPos: Double)] = []
-     
+        var endPoints: [(xPos: Double, yPos: Double)] = []
         while l <= maxN {
                     
             var point = (xPos: 0.0, yPos: 4.0)
@@ -76,6 +85,7 @@ class ShieldEq: NSObject,ObservableObject {
             
                 else {
                     await self.updateNumberEscape(number: numberEscape)
+                    endPoints.append(point)
                     point.xPos = 0.0
                     point.yPos = 4.0
                 }
@@ -92,8 +102,8 @@ class ShieldEq: NSObject,ObservableObject {
         await updatePercentEscapeText(percentEscapeTextString: newPercentEscapeText)
         await newNumberEscapeValue(numberEscapeValue: numberEscape)
         await newPercentEscapeValue(percentEscapeValue: percentEscape)
-        var plotScatterPoints = scatterPoints
-        await updateData(scatterPoints: plotScatterPoints)
+        let plotEndPoints = endPoints
+        await updateData(endPoints: plotEndPoints)
         return percentEscape
                 
     }
@@ -176,9 +186,9 @@ class ShieldEq: NSObject,ObservableObject {
             
         }
     
-    @MainActor func updateData(scatterPoints: [(xPos: Double, yPos: Double)]) {
+    @MainActor func updateData(endPoints: [(xPos: Double, yPos: Double)]) {
             
-            dataPoint.append(contentsOf: scatterPoints)
+            dataPoint.append(contentsOf: endPoints)
             
         }
         

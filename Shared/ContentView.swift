@@ -22,7 +22,7 @@ struct ContentView: View {
     
     
    
-    @ObservedObject var shieldModel = ShieldEq()
+    @ObservedObject var shieldModel = ShieldEq(withData: true)
     
   
     var body: some View {
@@ -74,7 +74,7 @@ struct ContentView: View {
             .padding()
             
            
-            drawingView(redLayer:$shieldModel.dataPoint)
+            drawingView(redLayer:$shieldModel.endPoints, blueLayer:$shieldModel.dataPoint)
                            .padding()
                            .aspectRatio(1, contentMode: .fit)
                            .drawingGroup()
@@ -116,6 +116,7 @@ struct ContentView: View {
         NString = "100"
         totalNString = "0.0"
         shieldModel.dataPoint = []
+        shieldModel.endPoints = []
         shieldModel.numberOfParticles = 0
         shieldModel.xPos = 0.0
         shieldModel.yPos = 4.0
